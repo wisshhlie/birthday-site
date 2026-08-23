@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>A little something</title>
+    <title>Happy Birthday</title>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Parisienne&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Parisienne&display=swap');
 
         * {
             box-sizing: border-box;
@@ -16,23 +16,44 @@
         body {
             margin: 0;
             min-height: 100vh;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    #263c2e 0%,
+                    #1c3024 35%,
+                    #142119 68%,
+                    #0b100d 100%
+                );
+
+            color: #ddd8c9;
+        }
+
+
+        /* ================================
+           OPENING SCREEN
+        ================================= */
+
+        .opening-screen {
+            position: fixed;
+            inset: 0;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            overflow: hidden;
+            transition:
+                opacity 1.2s ease,
+                visibility 1.2s ease;
 
-            background:
-                radial-gradient(
-                    ellipse at 50% 45%,
-                    #294432 0%,
-                    #1c3023 30%,
-                    #111b15 58%,
-                    #070b08 100%
-                );
+            z-index: 10;
+        }
 
-            color: #d8d4c6;
+        .opening-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
         .opening {
@@ -46,15 +67,16 @@
             align-items: center;
 
             text-align: center;
-
-            position: relative;
         }
+
+
+        /* ================================
+           TOP TEXT
+        ================================= */
 
         .top-decoration {
             font-family: "Cormorant Garamond", serif;
-
             font-size: 18px;
-
             letter-spacing: 5px;
 
             color: #71836f;
@@ -68,49 +90,60 @@
             font-family: "Cormorant Garamond", serif;
 
             font-size: 19px;
-
             letter-spacing: 3px;
 
             color: #a8ad9d;
 
             margin-bottom: 8px;
+
+            opacity: 0.72;
         }
 
         .main-text {
-            font-family: "Cormorant Garamond", serif;
+            font-family: "Parisienne", cursive;
 
-            font-size: 25px;
+            font-size: 48px;
 
-            letter-spacing: 3px;
-
-            color: #c2b39c;
+            color: #d8d4c6;
 
             margin-bottom: 38px;
+
+            text-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.35);
         }
+
+
+        /* ================================
+           GIFT
+        ================================= */
 
         .gift-wrapper {
             position: relative;
 
-            width: 230px;
-            height: 220px;
+            width: 250px;
+            height: 240px;
 
             cursor: pointer;
 
-            transition: transform 0.4s ease;
+            transition:
+                transform 0.5s ease;
         }
 
         .gift-wrapper:hover {
-            transform: translateY(-7px);
+            transform: translateY(-6px);
         }
+
+
+        /* SHADOW */
 
         .gift-shadow {
             position: absolute;
 
-            bottom: 0;
+            bottom: 5px;
             left: 50%;
 
             width: 190px;
-            height: 30px;
+            height: 28px;
 
             transform: translateX(-50%);
 
@@ -119,13 +152,53 @@
             border-radius: 50%;
 
             filter: blur(12px);
+
+            transition:
+                transform 1s ease,
+                opacity 1s ease;
         }
+
+
+        /* GLOW */
+
+        .gift-glow {
+            position: absolute;
+
+            left: 50%;
+            top: 65px;
+
+            width: 130px;
+            height: 130px;
+
+            transform: translateX(-50%);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(163, 138, 104, 0.30) 0%,
+                    rgba(163, 138, 104, 0.10) 35%,
+                    transparent 72%
+                );
+
+            border-radius: 50%;
+
+            filter: blur(8px);
+
+            opacity: 0;
+
+            transition:
+                opacity 1s ease,
+                transform 1.2s ease;
+        }
+
+
+        /* BOX */
 
         .box {
             position: absolute;
 
-            left: 25px;
-            bottom: 25px;
+            left: 35px;
+            bottom: 28px;
 
             width: 180px;
             height: 125px;
@@ -146,7 +219,13 @@
                 0 20px 35px rgba(0, 0, 0, 0.45);
 
             z-index: 2;
+
+            transition:
+                transform 1s ease;
         }
+
+
+        /* RIBBONS */
 
         .ribbon-vertical {
             position: absolute;
@@ -190,11 +269,16 @@
             opacity: 0.9;
         }
 
+
+        /* ================================
+           LID
+        ================================= */
+
         .lid {
             position: absolute;
 
-            left: 13px;
-            bottom: 143px;
+            left: 23px;
+            bottom: 146px;
 
             width: 204px;
             height: 42px;
@@ -215,9 +299,11 @@
 
             z-index: 4;
 
+            transform-origin: center bottom;
+
             transition:
-                transform 1s cubic-bezier(.68,-0.55,.27,1.55),
-                opacity 0.7s ease;
+                transform 1.2s cubic-bezier(.22,.61,.36,1),
+                opacity 0.8s ease;
         }
 
         .lid-ribbon {
@@ -240,7 +326,12 @@
                 );
         }
 
-        .bow {
+
+        /* ================================
+           BOW
+        ================================= */
+
+        .bow-gift {
             position: absolute;
 
             left: 50%;
@@ -252,6 +343,10 @@
             transform: translateX(-50%);
 
             z-index: 6;
+
+            transition:
+                transform 1.2s cubic-bezier(.22,.61,.36,1),
+                opacity 0.8s ease;
         }
 
         .bow-left,
@@ -270,13 +365,11 @@
 
         .bow-left {
             right: 35px;
-
             transform: rotate(25deg);
         }
 
         .bow-right {
             left: 35px;
-
             transform: rotate(-25deg);
         }
 
@@ -298,6 +391,11 @@
             z-index: 2;
         }
 
+
+        /* ================================
+           CLICK TEXT
+        ================================= */
+
         .click-text {
             margin-top: 35px;
 
@@ -309,46 +407,429 @@
 
             color: #9ba492;
 
-            transition: opacity 0.4s ease;
+            transition:
+                opacity 0.5s ease,
+                transform 0.5s ease;
         }
 
         .click-text span {
             color: #c2b39c;
         }
 
-        .gift-wrapper.open .lid {
-            transform:
-                translateY(-80px)
-                rotate(-8deg);
+
+        /* ================================
+           LITTLE FLOATING STARS
+        ================================= */
+
+        .sparkle {
+            position: absolute;
+
+            font-family: "Cormorant Garamond", serif;
+
+            color: #b29a78;
+
+            font-size: 18px;
 
             opacity: 0;
+
+            pointer-events: none;
+
+            z-index: 7;
         }
 
-        .gift-wrapper.open .bow {
-            transform:
-                translateX(-50%)
-                translateY(-80px)
-                rotate(-8deg);
-
-            opacity: 0;
-
-            transition:
-                transform 1s ease,
-                opacity 0.7s ease;
+        .sparkle.one {
+            left: 20px;
+            top: 80px;
         }
+
+        .sparkle.two {
+            right: 20px;
+            top: 105px;
+        }
+
+        .sparkle.three {
+            left: 48px;
+            bottom: 65px;
+        }
+
+        .sparkle.four {
+            right: 45px;
+            bottom: 80px;
+        }
+
+
+        /* ================================
+           OPEN ANIMATION
+        ================================= */
 
         .gift-wrapper.open {
-            transform: translateY(-5px) scale(1.03);
+            transform:
+                translateY(-3px)
+                scale(1.04);
         }
 
-        .gift-wrapper.open + .click-text {
+        .gift-wrapper.open .gift-glow {
+            opacity: 1;
+
+            transform:
+                translateX(-50%)
+                scale(1.35);
+        }
+
+        .gift-wrapper.open .lid {
+            transform:
+                translateY(-105px)
+                translateX(35px)
+                rotate(7deg);
+
+            opacity: 0.15;
+        }
+
+        .gift-wrapper.open .bow-gift {
+            transform:
+                translateX(-50%)
+                translateY(-118px)
+                rotate(8deg)
+                scale(0.85);
+
             opacity: 0;
         }
+
+        .gift-wrapper.open .box {
+            transform:
+                translateY(2px);
+        }
+
+        .gift-wrapper.open .gift-shadow {
+            transform:
+                translateX(-50%)
+                scale(0.85);
+
+            opacity: 0.6;
+        }
+
+        .gift-wrapper.open ~ .click-text {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+
+        /* SPARKLES */
+
+        .gift-wrapper.open .sparkle {
+            animation:
+                sparkleFloat 1.4s ease forwards;
+        }
+
+        @keyframes sparkleFloat {
+
+            0% {
+                opacity: 0;
+                transform:
+                    translateY(20px)
+                    scale(0.5);
+            }
+
+            35% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translateY(-55px)
+                    scale(1.15);
+            }
+        }
+
+
+        /* ================================
+           BIRTHDAY SCREEN
+        ================================= */
+
+        .birthday-screen {
+            position: fixed;
+            inset: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 22px;
+
+            opacity: 0;
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity 1.4s ease,
+                visibility 1.4s ease;
+
+            z-index: 5;
+        }
+
+        .birthday-screen.show {
+            opacity: 1;
+            visibility: visible;
+
+            pointer-events: auto;
+        }
+
+
+        /* CARD */
+
+        .card {
+            width: 100%;
+            max-width: 760px;
+            min-height: 680px;
+
+            padding: 70px 45px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 38%,
+                    #294131 0%,
+                    #203527 45%,
+                    #17261e 100%
+                );
+
+            color: #ddd8c9;
+
+            border-radius: 48px;
+
+            border: 1px solid #506254;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                inset 0 0 80px rgba(0, 0, 0, 0.22);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transform:
+                translateY(35px)
+                scale(0.96);
+
+            transition:
+                transform 1.4s cubic-bezier(.22,.61,.36,1);
+        }
+
+        .birthday-screen.show .card {
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 17px;
+
+            border: 1px solid #526456;
+
+            border-radius: 36px;
+
+            opacity: 0.75;
+
+            pointer-events: none;
+        }
+
+        .content {
+            max-width: 570px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* ================================
+           CARD TEXT
+        ================================= */
+
+        .birthday {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 24px;
+
+            letter-spacing: 6px;
+
+            text-transform: uppercase;
+
+            color: #a7ad9d;
+
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            font-family: "Parisienne", cursive;
+
+            font-size: clamp(80px, 14vw, 125px);
+
+            font-weight: normal;
+
+            line-height: 0.9;
+
+            margin: 0;
+
+            color: #7d907d;
+
+            transform: translateY(35px);
+
+            text-shadow:
+                0 5px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .age {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 46px;
+
+            letter-spacing: 6px;
+
+            margin-top: 18px;
+
+            color: #a58d72;
+        }
+
+        .message {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 23px;
+
+            line-height: 1.5;
+
+            margin: 36px auto 0;
+
+            color: #b9bdaf;
+        }
+
+        .dyra {
+            font-family: "Cormorant Garamond", serif;
+
+            font-style: italic;
+
+            font-size: 26px;
+
+            color: #d0c8b8;
+
+            display: inline-block;
+
+            margin-top: 5px;
+        }
+
+        .bow-symbol {
+            font-family: "Cormorant Garamond", serif;
+
+            color: #7d907d;
+
+            font-size: 21px;
+
+            font-style: normal;
+
+            margin: 0 7px;
+        }
+
+        .decor {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 27px;
+
+            letter-spacing: 8px;
+
+            margin: 26px 0 31px;
+
+            color: #7d907d;
+        }
+
+
+        /* ENTER */
+
+        .enter {
+            display: inline-block;
+
+            padding: 13px 38px;
+
+            border: 1px solid #718273;
+
+            border-radius: 30px;
+
+            color: #d8d5c8;
+
+            background: rgba(12, 20, 15, 0.25);
+
+            text-decoration: none;
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 17px;
+
+            letter-spacing: 3px;
+
+            cursor: pointer;
+
+            transition:
+                all 0.35s ease;
+        }
+
+        .enter:hover {
+            background: #d8d5c8;
+
+            color: #18251c;
+
+            border-color: #d8d5c8;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* SIGNATURE */
+
+        .signature {
+            margin-top: 38px;
+
+            font-family: "Parisienne", cursive;
+
+            font-size: 29px;
+
+            line-height: 1.25;
+
+            color: #a58d72;
+        }
+
+        .wink {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 17px;
+
+            color: #9aaa98;
+
+            margin-left: 5px;
+
+            white-space: nowrap;
+
+            opacity: 1;
+        }
+
+
+        /* ================================
+           MOBILE
+        ================================= */
 
         @media (max-width: 600px) {
 
             .main-text {
-                font-size: 22px;
+                font-size: 40px;
             }
 
             .gift-wrapper {
@@ -356,73 +837,296 @@
             }
 
             .gift-wrapper:hover {
-                transform: scale(0.9) translateY(-5px);
+                transform:
+                    scale(0.9)
+                    translateY(-5px);
+            }
+
+            .birthday-screen {
+                padding: 12px;
+            }
+
+            .card {
+                min-height: 620px;
+
+                padding: 60px 25px;
+
+                border-radius: 38px;
+            }
+
+            .card::before {
+                inset: 13px;
+
+                border-radius: 27px;
+            }
+
+            .birthday {
+                font-size: 21px;
+            }
+
+            .message {
+                font-size: 20px;
+            }
+
+            .dyra {
+                font-size: 23px;
+            }
+
+            .signature {
+                font-size: 26px;
+            }
+
+            .wink {
+                font-size: 15px;
             }
         }
     </style>
 </head>
 
+
 <body>
 
-    <main class="opening">
 
-        <div class="top-decoration">
-            ✦ ୨୧ ✦
-        </div>
+    <!-- =================================
+         FIRST SCREEN
+    ================================== -->
 
-        <div class="small-text">
-            a little something
-        </div>
+    <section
+        class="opening-screen"
+        id="openingScreen"
+    >
 
-        <div class="main-text">
-            just for you
-        </div>
+        <main class="opening">
 
-        <div class="gift-wrapper" id="gift">
+            <div class="top-decoration">
+                ✦ ୨୧ ✦
+            </div>
 
-            <div class="gift-shadow"></div>
+            <div class="small-text">
+                a little something
+            </div>
 
-            <div class="box">
+            <div class="main-text">
+                just for you
+            </div>
 
-                <div class="ribbon-vertical"></div>
 
-                <div class="ribbon-horizontal"></div>
+            <!-- GIFT -->
+
+            <div
+                class="gift-wrapper"
+                id="gift"
+            >
+
+                <div class="gift-glow"></div>
+
+                <div class="gift-shadow"></div>
+
+
+                <div class="box">
+
+                    <div class="ribbon-vertical"></div>
+
+                    <div class="ribbon-horizontal"></div>
+
+                </div>
+
+
+                <div class="lid">
+
+                    <div class="lid-ribbon"></div>
+
+                </div>
+
+
+                <div class="bow-gift">
+
+                    <div class="bow-left"></div>
+
+                    <div class="bow-right"></div>
+
+                    <div class="bow-center"></div>
+
+                </div>
+
+
+                <!-- SPARKLES -->
+
+                <div class="sparkle one">
+                    ✦
+                </div>
+
+                <div class="sparkle two">
+                    ୨୧
+                </div>
+
+                <div class="sparkle three">
+                    ✧
+                </div>
+
+                <div class="sparkle four">
+                    ✦
+                </div>
 
             </div>
 
-            <div class="lid">
 
-                <div class="lid-ribbon"></div>
+            <div class="click-text">
 
-            </div>
+                <span>✦</span>
 
-            <div class="bow">
+                click on the box
 
-                <div class="bow-left"></div>
-                <div class="bow-right"></div>
-                <div class="bow-center"></div>
+                <span>✦</span>
 
             </div>
 
-        </div>
+        </main>
 
-        <div class="click-text">
-            <span>✦</span> click on the box <span>✦</span>
-        </div>
+    </section>
 
-    </main>
+
+
+    <!-- =================================
+         BIRTHDAY CARD
+    ================================== -->
+
+    <section
+        class="birthday-screen"
+        id="birthdayScreen"
+    >
+
+        <main class="card">
+
+            <div class="content">
+
+                <div class="birthday">
+                    Happy Birthday
+                </div>
+
+                <h1>
+                    ♡
+                </h1>
+
+                <div class="age">
+                    19
+                </div>
+
+                <p class="message">
+
+                    You survived another year,
+
+                    <br>
+
+                    <span class="dyra">
+
+                        <span class="bow-symbol">
+                            ୨୧
+                        </span>
+
+                        Dyra
+
+                        <span class="bow-symbol">
+                            ୨୧
+                        </span>
+
+                    </span>
+
+                </p>
+
+                <div class="decor">
+                    ✦ ♡ ✦
+                </div>
+
+
+                <!-- ENTER -->
+
+                <a
+                    href="#"
+                    class="enter"
+                    id="enterButton"
+                >
+                    Enter
+                </a>
+
+
+                <div class="signature">
+
+                    with love,<br>
+
+                    your little sister
+
+                    <span class="wink">
+                        (｡•̀ᴗ-)✧
+                    </span>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </section>
+
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
 
     <script>
 
-        const gift = document.getElementById("gift");
+        const gift =
+            document.getElementById("gift");
+
+        const openingScreen =
+            document.getElementById("openingScreen");
+
+        const birthdayScreen =
+            document.getElementById("birthdayScreen");
+
+        const enterButton =
+            document.getElementById("enterButton");
+
+
+        /* OPEN GIFT */
 
         gift.addEventListener("click", () => {
 
+            if (gift.classList.contains("open")) {
+                return;
+            }
+
             gift.classList.add("open");
+
+
+            /*
+               Сначала коробка открывается.
+               Потом появляется карточка.
+            */
+
+            setTimeout(() => {
+
+                openingScreen.classList.add("hidden");
+
+                birthdayScreen.classList.add("show");
+
+            }, 1150);
+
+        });
+
+
+        /* ENTER */
+
+        enterButton.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            alert("The wishes are coming soon ♡");
 
         });
 
     </script>
 
 </body>
-</html>
+</html>с
